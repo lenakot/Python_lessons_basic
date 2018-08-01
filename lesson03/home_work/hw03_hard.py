@@ -1,3 +1,7 @@
+import os
+
+__author__ = 'Котова Елена'
+
 # Задание-1:
 # Написать программу, выполняющую операции (сложение и вычитание) с простыми дробями.
 # Дроби вводятся и выводятся в формате:
@@ -31,3 +35,18 @@
 # Подсказка:
 # Чтобы получить список больших букв русского алфавита:
 # print(list(map(chr, range(ord('А'), ord('Я')+1))))
+
+# Читаем список фруктов
+f = open(os.path.join('lesson03', 'home_work', 'data', 'fruits.txt'), 'r', encoding='UTF-8')
+fruits = f.readlines()
+f.close()
+
+# Разбиваем фрукты по отдельным файлам по алфавиту
+rus_al = list(map(chr, range(ord('А'), ord('Я')+1)))
+for letter in rus_al:
+    for fruit in fruits:
+        if fruit[0] == letter:
+            g = open(os.path.join('lesson03', 'home_work', 'data',
+                                  'fruits_' + letter + '.txt'), 'a', encoding='UTF-8')
+            g.write(fruit + '\n')
+            g.close()

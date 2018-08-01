@@ -1,3 +1,5 @@
+__author__ = 'Котова Елена'
+
 # Задание-1:
 # Напишите функцию, округляющую полученное произвольное десятичное число
 # до кол-ва знаков (кол-во знаков передается вторым аргументом).
@@ -20,7 +22,13 @@ print(my_round(2.9999967, 5))
 # !!!P.S.: функция не должна НИЧЕГО print'ить
 
 def lucky_ticket(ticket_number):
-    pass
+    ticket_number = str(ticket_number)
+    if len(ticket_number) == 6 and \
+       int(ticket_number[0])+int(ticket_number[1])+int(ticket_number[2]) == \
+       int(ticket_number[3])+int(ticket_number[4])+int(ticket_number[5]):
+        return True
+    else:
+        return False
 
 
 print(lucky_ticket(123006))
