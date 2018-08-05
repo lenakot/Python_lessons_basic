@@ -1,3 +1,6 @@
+import re
+__author__ = 'Котова Елена'
+
 # Задание-1:
 # Матрицы в питоне реализуются в виде вложенных списков:
 # Пример. Дано:
@@ -12,6 +15,8 @@ matrix = [[1, 0, 8],
 #                  [8, 1, 2]]
 
 # Суть сложности hard: Решите задачу в одну строку
+
+matrix_rotate = [list(el) for el in zip(*matrix)]
 
 # Задание-2:
 # Найдите наибольшее произведение пяти последовательных цифр в 1000-значном числе.
@@ -39,6 +44,19 @@ number = """
 05886116467109405077541002256983155200055935729725
 71636269561882670428252483600823257530420752963450"""
 
+numbers = re.findall(r'[0-9]{5}', number)
+num_max = 0
+max_index = 0
+for num in numbers:
+    num_mul = 1
+    for digit in num:
+        num_mul *= int(digit)
+    if num_mul > num_max:
+        num_max = num_mul
+        max_index = number.find(num)
+print('Max = ', num_max)
+print('Index = ', max_index)
+print('Number = ', number[max_index:max_index+5])
 
 # Задание-3 (Ферзи):
 # Известно, что на доске 8×8 можно расставить 8 ферзей так, чтобы они не били
