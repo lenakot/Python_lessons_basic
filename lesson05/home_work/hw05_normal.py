@@ -1,3 +1,11 @@
+import os
+import sys
+import shutil
+
+from hw05_easy import print_current_dir
+
+__author__ = "Котова Елена"
+
 # Задача-1:
 # Напишите небольшую консольную утилиту,
 # позволяющую работать с папками текущей директории.
@@ -13,3 +21,43 @@
 # Для решения данной задачи используйте алгоритмы из задания easy,
 # оформленные в виде соответствующих функций,
 # и импортированные в данный файл из easy.py
+
+
+while True:
+    print('''
+    Меню:
+        1. Перейти в папку
+        2. Просмотреть содержимое текущей папки
+        3. Удалить папку
+        4. Создать папку
+        5. Выйти
+    ''')
+
+    answer = input('Выберите дейстивие: ')
+    if answer == '1':
+        dir_name = input('Введите название папки: ')
+        try:
+            os.chdir(dir_name)
+            print('Успешно перешли в', dir_name)
+        except Exception:
+            print('Невозможно перейти в', dir_name)
+    elif answer == '2':
+        print_current_dir()
+    elif answer == '3':
+        dir_name = input('Введите название папки: ')
+        try:
+            os.removedirs(dir_name)
+            print('Успешно удалили', dir_name)
+        except Exception:
+            print('Невозможно удалить', dir_name)
+    elif answer == '4':
+        dir_name = input('Введите название папки: ')
+        try:
+            os.makedirs(dir_name)
+            print('Успешно создали', dir_name)
+        except Exception:
+            print('Невозможно создать', dir_name)
+    elif answer == '5':
+        break
+    else:
+        print('Неизвестное действие')
