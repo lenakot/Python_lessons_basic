@@ -123,3 +123,44 @@ OpenWeatherMap — онлайн-сервис, который предостав�
 
 """
 
+import json
+import os
+import sqlite3
+import datetime
+
+from urllib.request import urlopen
+from pprint import pprint
+
+# Читаем список городов.
+with open('lesson08/home_work/city.list.json', encoding='UTF-8') as f:
+    cities_list = json.load(f)
+
+# Ищем подходящие варианты.
+city_name = input('Введите название города на английском: ')
+variants = []
+for city in cities_list:
+    if city['name'].find(city_name) >= 0:
+        variants.append(city)
+
+# Если городов несколько, предлагаем выбрать из подходящих.
+if len(variants) > 1:
+    print('Город с таким названием есть в нескольких странах: ')
+    for i, city in enumerate(variants):
+        print('{}. {} ({})'.format(i + 1, city['country'], city['name']))
+    city = variants[int(input('Введите номер страны: ')) - 1]
+elif len(variants) == 1:
+    city = variants[0]
+else:
+    print('Город с таким названием не найден.')
+    exit()
+
+# Скачиваем и показываем данные о погоде для выбранного города.
+with open('lesson08/home_work/app.id', encoding='UTF-8') as f:
+    appid = f.readline()
+
+url = 'http://api.openweathermap.org/data/2.5/weather?units=metric&id={}&appid={}'.format(city['id'], appid)
+city_data = json.load(urlopen(url))
+print('{} {}: {}C'.format(
+    city_data['name'],
+    city_data['sys']['country'],
+    city_data['main']['temp']))
